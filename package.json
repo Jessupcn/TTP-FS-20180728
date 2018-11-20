@@ -1,13 +1,18 @@
 {
-  "name": "simple_stocks",
+  "name": "simple-stocks",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-client": "webpack",
+    "build-client-watch": "webpack -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "start-dev": "NODE_ENV='development' npm run build-client-watch & npm run start-server",
+    "start-server": "nodemon server -e html,js,scss --ignore public --ignore client"
   },
   "keywords": [],
-  "author": "",
+  "author": "Connor Jessup",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -15,6 +20,10 @@
     "express": "^4.16.4",
     "morgan": "^1.9.1",
     "path": "^0.12.7",
+    "pg": "^7.6.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-router-dom": "^4.3.1",
     "sequelize": "^4.41.2"
   }
 }

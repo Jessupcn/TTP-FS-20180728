@@ -3,12 +3,15 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-
+const db = require('./database');
 const PORT = process.env.PORT || 8080;
 
 // create express.js app
 const app = express();
 module.exports = app;
+
+// sync database
+db.sync().then(() => console.log('Database is synced'));
 
 // logging middleware
 app.use(morgan('dev'));
