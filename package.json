@@ -17,14 +17,17 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
+    "connect-session-sequelize": "^6.0.0",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
+    "passport": "^0.4.0",
     "path": "^0.12.7",
     "pg": "^7.6.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
     "sequelize": "^4.41.2",
+    "session": "^0.1.0",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0"
   },

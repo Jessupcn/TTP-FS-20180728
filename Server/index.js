@@ -3,8 +3,21 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const session = require('express-session');
+const passport = require('passport');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./database');
+const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
+
+// register passport
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser((id, done) =>
+  db.models.user
+    .findById(id)
+    .then(user => done(null, user))
+    .catch(done)
+);
 
 // create express.js app
 const app = express();
@@ -22,6 +35,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // compression middleware
 app.use(compression());
+
+// session middleware with passport
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'this is a secret session shh',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 600000 }
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// auth and api routes
+app.use('/auth', require('./auth'));
+app.use('/api', require('./api'));
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
