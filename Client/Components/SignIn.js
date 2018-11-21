@@ -16,19 +16,11 @@ const SignIn = props => {
       <form onSubmit={handleSubmit}>
         <div>
           <p>Email:</p>
-          <input
-            name="email"
-            type="text"
-            placeholder="Enter Email Address..."
-          />
+          <input name="email" type="text" placeholder="Email Address" />
         </div>
         <div>
           <p>Password:</p>
-          <input
-            name="password"
-            type="password"
-            placeholder="Enter Password..."
-          />
+          <input name="password" type="password" placeholder="Password" />
         </div>
         <div>
           <button type="submit">Sign In</button>

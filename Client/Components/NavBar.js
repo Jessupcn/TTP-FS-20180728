@@ -1,21 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout } from '../Store';
 
 /**
  * COMPONENT
  */
 const NavBar = ({ handleClick, isLoggedIn }) => {
   return (
-    <div className="NavBar">
+    <div className="navbar">
       <h3>Simple Stocks</h3>
-      <div>
-        <Link to={`/home`}>Resume</Link>
-      </div>
-      <div>
-        <Link to={`/home`}>Projects</Link>
-      </div>
-      <div>
-        <Button onClick={handleClick}>Log Out</Button>
+      <div className="nav-items flexRow">
+        <div>
+          <Link to={`/home`}>Portfolio</Link>
+        </div>
+        <div>
+          <Link to={`/home`}>Transactions</Link>
+        </div>
+        <div>
+          <button onClick={handleClick}>Log Out</button>
+        </div>
       </div>
     </div>
   );
@@ -27,17 +31,18 @@ const NavBar = ({ handleClick, isLoggedIn }) => {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id
-  }
-}
+  };
+};
 
 const mapDispatch = dispatch => {
   return {
     handleClick() {
-      dispatch(logout())
+      dispatch(logout());
     }
-  }
-}
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
-
-export default NavBar;
+export default connect(
+  mapState,
+  mapDispatch
+)(NavBar);
