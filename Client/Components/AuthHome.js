@@ -6,7 +6,7 @@ import SignUp from './SignUp';
 
 const AuthHome = () => {
   return (
-    <div>
+    <div className="AuthContainer flexRow shadow">
       <SignIn />
       <SignUp />
     </div>

@@ -16,18 +16,26 @@ const SignUp = props => {
       <form onSubmit={handleSubmit}>
         <div>
           <p>Name:</p>
-          <input name="name" type="text" />
+          <input name="name" type="text" placeholder="Enter Name..." />
         </div>
         <div>
           <p>Email:</p>
-          <input name="email" type="text" />
+          <input
+            name="email"
+            type="text"
+            placeholder="Enter Email Address..."
+          />
         </div>
         <div>
           <p>Password:</p>
-          <input name="password" type="password" />
+          <input
+            name="password"
+            type="password"
+            placeholder="Enter Password..."
+          />
         </div>
         <div>
-          <button type="submit">Sign In</button>
+          <button type="submit">Register</button>
         </div>
         {error && error.response ? <div>{error.response.data}</div> : null}
       </form>
@@ -48,7 +56,7 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
-      const formName = 'login';
+      const formName = 'signup';
       const userInfo = {
         name: evt.target.name.value,
         email: evt.target.email.value,

@@ -21,7 +21,14 @@ export const removeUser = () => ({ type: REMOVE_USER });
 /**
  * THUNK CREATORS
  */
+// Specifically to check if a user is logged in
+export const isLoggedIn = () => dispatch =>
+  axios
+    .get('/auth/isLoggedIn')
+    .then(res => dispatch(getUser(res.data || defaultUser)))
+    .catch(err => console.log(err));
 
+// send request to either login or signup
 export const auth = (userInfo, method) => dispatch =>
   axios
     .post(`/auth/${method}`, userInfo)
@@ -31,6 +38,7 @@ export const auth = (userInfo, method) => dispatch =>
     })
     .catch(err => console.error(err));
 
+// log a user out
 export const logout = () => dispatch =>
   axios
     .post('/auth/logout')
