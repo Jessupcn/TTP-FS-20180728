@@ -1,19 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { auth } from '../Store';
 
 /**
  * COMPONENT
  */
-const SignIn = props => {
+const SignUp = props => {
   const { error, handleSubmit } = props;
   if (error) {
     console.log(error);
   }
   return (
     <div>
-      <h4>Sign In:</h4>
+      <h4>New User:</h4>
       <form onSubmit={handleSubmit}>
+        <div>
+          <p>Name:</p>
+          <input name="name" type="text" />
+        </div>
         <div>
           <p>Email:</p>
           <input name="email" type="text" />
@@ -46,6 +50,7 @@ const mapDispatch = dispatch => {
       evt.preventDefault();
       const formName = 'login';
       const userInfo = {
+        name: evt.target.name.value,
         email: evt.target.email.value,
         password: evt.target.password.value
       };
@@ -57,4 +62,4 @@ const mapDispatch = dispatch => {
 export default connect(
   mapState,
   mapDispatch
-)(SignIn);
+)(SignUp);
