@@ -22,9 +22,9 @@ export const removeUser = () => ({ type: REMOVE_USER });
  * THUNK CREATORS
  */
 
-export const auth = (email, password, method) => dispatch =>
+export const auth = (userInfo, method) => dispatch =>
   axios
-    .post(`/auth/${method}`, { email, password })
+    .post(`/auth/${method}`, userInfo)
     .then(res => {
       dispatch(getUser(res.data));
       history.push('/home');

@@ -1,16 +1,18 @@
 const router = require('express').Router();
-const { User } = require('../database/models');
+const { User, Transaction } = require('../database/models');
 module.exports = router;
 
 router.post('/login', (req, res, next) => {
+  console.log('REQQQQQ BODDYYYYY', req.body);
   User.findOne({
     where: { email: req.body.email },
-    include: [{ model: 'Transaction' }]
+    include: [{ model: Transaction }]
   })
+    .then(user => user.dataValues)
     .then(user => {
       if (!user) {
         res.status(401).send('Wrong username and/or password');
-      } else if (!req.body.password !== user.password) {
+      } else if (req.body.password !== user.password) {
         res.status(401).send('Wrong username and/or password');
       } else {
         req.login(user, err => (err ? next(err) : res.json(user)));
