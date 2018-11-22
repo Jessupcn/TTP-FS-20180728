@@ -2,12 +2,13 @@ import React from 'react';
 
 // component imports
 import NavBar from './NavBar';
-import { MakeTransaction } from './TransactionComponents';
+import { MakeTransaction, UsersTransactions } from './TransactionComponents';
 
 const TransactionHome = () => {
   return (
     <div>
       <NavBar />
+      <UsersTransactions />
       <MakeTransaction />
     </div>
   );

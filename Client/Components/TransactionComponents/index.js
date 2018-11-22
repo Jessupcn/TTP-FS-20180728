@@ -1,3 +1,3 @@
 export { default as MakeTransaction } from './MakeTransaction';
-export { default as usersTransaction } from './usersTransaction';
+export { default as UsersTransactions } from './UsersTransactions';
 export { default as SingleTransaction } from './SingleTransaction';
