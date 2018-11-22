@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
-import { AuthHome, UserHome } from './components';
+import { AuthHome, TransactionHome } from './components';
 import { isLoggedIn } from './store';
 
 /**
@@ -20,7 +20,7 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are available to logged in users */}
-            <Route component={UserHome} />
+            <Route component={TransactionHome} />
           </Switch>
         )}
         {/* Display Auth page as a fallback */}

@@ -1,8 +1,7 @@
 import React from 'react';
 
 // component imports
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+import { SignIn, SignUp } from './AuthComponents';
 
 const AuthHome = () => {
   return (

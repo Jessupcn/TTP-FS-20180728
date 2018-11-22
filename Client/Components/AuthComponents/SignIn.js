@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { auth } from '../Store';
+import { auth } from '../../Store';
 
 /**
  * COMPONENT
@@ -8,7 +8,7 @@ import { auth } from '../Store';
 const SignIn = props => {
   const { error, handleSubmit } = props;
   if (error) {
-    console.log(error);
+    console.log('ERRRROR: ', error);
   }
   return (
     <div>
