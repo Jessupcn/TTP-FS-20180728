@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTransactions } from '../../Store';
+import { fetchAssets } from '../../Store';
 import PortfolioItem from './PortfolioItem';
+import { AssertionError } from 'assert';
 
 /**
  * COMPONENT
@@ -14,31 +15,31 @@ class UsersPortfolio extends Component {
 
   componentDidMount() {
     if (this.props.user.id) {
-      this.props.loadTransactions(this.props.user.id);
+      this.props.loadPortfolio(this.props.user.id);
     }
   }
 
   render() {
-    const { transactions } = this.props;
+    const { portfolio } = this.props;
     return (
       <div>
         <div className="flexRow singleTransactions">
           <p>Stock:</p>
           <p>Shares:</p>
-          <p>Price:</p>
+          <p>Current Price:</p>
         </div>
         {
           <div>
-            {transactions.length
-              ? transactions.map(transaction => (
-                  <SingleTransaction
-                    key={transaction.id}
-                    transaction={transaction}
-                  />
+            {portfolio.length
+              ? portfolio.map(asset => (
+                  <PortfolioItem key={asset.id} asset={asset} />
                 ))
-              : 'No known transactions'}
+              : 'Portfolio current empty.'}
           </div>
         }
+        <div>
+          <h3>{`Portfolio Total: $${50}`}</h3>
+        </div>
       </div>
     );
   }
@@ -50,14 +51,14 @@ class UsersPortfolio extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    transactions: state.transactions
+    portfolio: state.portfolio
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    loadTransactions: userId => {
-      dispatch(fetchTransactions(userId));
+    loadPortfolio: userId => {
+      dispatch(fetchAssets(userId));
     }
   };
 };
