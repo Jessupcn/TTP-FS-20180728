@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTransactions } from '../../Store';
-// var ScrollArea = require('react-scrollbar');
-import ScrollArea from 'react-scrollbar';
-import SingleTransaction from './SingleTransaction';
+import PortfolioItem from './PortfolioItem';
 
 /**
  * COMPONENT
  */
-class UsersTransactions extends Component {
+class UsersPortfolio extends Component {
   constructor() {
     super();
     this.state = {};
@@ -67,4 +65,4 @@ const mapDispatch = dispatch => {
 export default connect(
   mapState,
   mapDispatch
-)(UsersTransactions);
+)(UsersPortfolio);

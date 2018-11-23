@@ -8,8 +8,10 @@ const TransactionHome = () => {
   return (
     <div>
       <NavBar />
-      <UsersTransactions />
-      <MakeTransaction />
+      <div className="flexRow">
+        <UsersTransactions />
+        <MakeTransaction />
+      </div>
     </div>
   );
 };

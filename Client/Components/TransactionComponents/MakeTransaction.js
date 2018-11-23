@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { purchase } from '../../Store';
-// var ScrollArea = require('react-scrollbar');
-import ScrollArea from 'react-scrollbar';
+import { postTransaction } from '../../Store';
 
 /**
  * COMPONENT
  */
-const MakeTransaction = props => {
-  const { user, handleSubmit, error } = props;
-  if (user) {
-    console.log('USER: ', user);
+class MakeTransaction extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  return (
-    <div>
-      <ScrollArea
-        speed={0.8}
-        className="area"
-        contentClassName="content"
-        horizontal={false}
-        vertical={true}
-      >
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    const transactionInfo = {
+      userId: this.props.user.id,
+      tickerSymbol: evt.target.tickerSymbol.value,
+      quantity: evt.target.quantity.value
+    };
+    this.props.handleFormSubmit(transactionInfo);
+  }
+
+  render() {
+    const { user, error } = this.props;
+    return (
+      <div>
+        <h3>{`Available Balance: $${user.balance / 100}`}</h3>
         <h4>MakeTransaction:</h4>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={evt => this.handleSubmit(evt)}>
           <div>
             <p>Stock Symbol:</p>
             <input
@@ -40,10 +45,10 @@ const MakeTransaction = props => {
           </div>
           {error && error.response ? <div>{error.response.data}</div> : null}
         </form>
-      </ScrollArea>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
 /**
  * CONTAINER
@@ -57,13 +62,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
-      evt.preventDefault();
-      const transactionInfo = {
-        tickerSymbol: evt.target.tickerSymbol.value,
-        quantity: evt.target.quantity.value
-      };
-      dispatch(purchase(transactionInfo));
+    handleFormSubmit(transactionInfo) {
+      dispatch(postTransaction(transactionInfo));
     }
   };
 };

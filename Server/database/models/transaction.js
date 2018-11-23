@@ -26,7 +26,7 @@ const Transaction = db.define('transaction', {
   },
   // total in dollars
   total: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.DOUBLE,
     get() {
       return (this.getDataValue('quantity') * this.getDataValue('price')) / 100;
     }

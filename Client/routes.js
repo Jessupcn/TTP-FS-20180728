@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { AuthHome, TransactionHome } from './components';
-import { isLoggedIn } from './store';
+import { LoggedIn } from './store';
 
 /**
  * COMPONENT
@@ -14,7 +14,6 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-    console.log('logged in:', isLoggedIn);
     return (
       <Switch>
         {isLoggedIn && (
@@ -43,7 +42,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadInitialData() {
-      dispatch(isLoggedIn());
+      dispatch(LoggedIn());
     }
   };
 };
