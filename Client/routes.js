@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
-import { AuthHome, TransactionHome } from './components';
-import { LoggedIn } from './store';
+import { AuthHome, TransactionHome, PortfolioHome } from './components';
+import { loggedIn } from './store';
 
 /**
  * COMPONENT
@@ -19,6 +19,8 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are available to logged in users */}
+            <Route path="/transactions" component={TransactionHome} />
+            <Route path="/portfolio" component={PortfolioHome} />
             <Route component={TransactionHome} />
           </Switch>
         )}
@@ -42,7 +44,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadInitialData() {
-      dispatch(LoggedIn());
+      dispatch(loggedIn());
     }
   };
 };

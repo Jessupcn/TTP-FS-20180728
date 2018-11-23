@@ -4,8 +4,8 @@ import React from 'react';
  * COMPONENT
  */
 const PortfolioItem = props => {
-  const { tickerSymbol, quantity, price, total } = props.transaction;
-  const dollarPrice = price / 100;
+  const { tickerSymbol, quantity, currentPrice, total } = props.transaction;
+  const dollarPrice = currentPrice / 100;
   return (
     <div className="flexRow">
       <p>{tickerSymbol}</p>
