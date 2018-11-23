@@ -28,26 +28,19 @@ export const removePortfolio = () => ({ type: REMOVE_PORTFOLIO });
 /**
  * THUNK CREATORS
  */
-export const fetchTransactions = userId => dispatch => {
+export const fetchAssets = userId => dispatch => {
   return axios
-    .get(`/api/transactions/${userId}`)
+    .get(`/api/portfolio/${userId}`)
     .then(res => {
-      dispatch(getTransactions(res.data || defaultTransactions));
+      dispatch(getPortfolio(res.data || defaultPortfolio));
     })
     .catch(err => console.log(err));
 };
 
-export const postTransaction = transaction => dispatch =>
-  axios
-    .post('/api/transactions', transaction)
-    .then(res => {
-      console.log('RESSS: ', res.data);
-      dispatch(addTransaction(res.data || defaultTransactions));
-    })
-    .catch(err => console.log(err));
+export const postAsset = info =>
+  axios.post('/api/portfolio', info).catch(err => console.log(err));
 
-export const logoutTransactions = () => dispatch =>
-  dispatch(removeTransactions());
+export const logoutPortfolio = () => dispatch => dispatch(removePortfolio());
 
 /**
  * REDUCER
@@ -55,9 +48,7 @@ export const logoutTransactions = () => dispatch =>
 export default function(state = defaultPortfolio, action) {
   switch (action.type) {
     case GET_PORTFOLIO:
-      return action.PORTFOLIOs;
-    case ADD_TO_PORTFOLIO:
-      return [...state, action.item];
+      return action.portfolio;
     case REMOVE_PORTFOLIO:
       return defaultPortfolio;
     default:

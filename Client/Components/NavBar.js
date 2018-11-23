@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout, logoutTransactions } from '../Store';
+import { logout, logoutTransactions, logoutPortfolio } from '../Store';
 
 /**
  * COMPONENT
@@ -38,6 +38,7 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logoutTransactions());
+      dispatch(logoutPortfolio());
       dispatch(logout());
     }
   };

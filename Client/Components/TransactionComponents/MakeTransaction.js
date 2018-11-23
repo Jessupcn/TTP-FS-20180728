@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postTransaction } from '../../Store';
+import { postTransaction, postAsset } from '../../Store';
 
 /**
  * COMPONENT
@@ -18,11 +18,23 @@ class MakeTransaction extends Component {
       tickerSymbol: evt.target.tickerSymbol.value,
       quantity: evt.target.quantity.value
     };
-    this.props.handleFormSubmit(transactionInfo);
+    this.props
+      .handleFormSubmit(transactionInfo)
+      .then(() => {
+        if (!this.props.error) {
+          this.props.handlePostToPort(transactionInfo);
+        }
+      })
+      .catch();
+  }
+
+  postToPortfolio(transactionInfo) {
+    this.props.handlePostToPort(transactionInfo);
   }
 
   render() {
     const { user, error } = this.props;
+    console.log('ERROR: ', error);
     return (
       <div>
         <h3>{`Available Balance: $${user.balance / 100}`}</h3>
@@ -64,6 +76,9 @@ const mapDispatch = dispatch => {
   return {
     handleFormSubmit(transactionInfo) {
       dispatch(postTransaction(transactionInfo));
+    },
+    handlePostToPort(transactionInfo) {
+      dispatch(postAsset(transactionInfo));
     }
   };
 };
