@@ -2,7 +2,8 @@ const router = require('express').Router();
 module.exports = router;
 
 router.use('/transactions', require('./transactions'));
-// router.use('/stockAsset', require('./stockAsset'));
+router.use('/portfolio', require('./portfolio'));
+router.use('/user', require('./user'));
 
 router.use((req, res, next) => {
   const error = new Error('Not Found');

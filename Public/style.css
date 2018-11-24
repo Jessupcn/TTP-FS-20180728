@@ -1,38 +1,61 @@
 /*
 * ADD SHADOW AROUND CONTAINER
 */
-.shadow {
+.container-shadow {
+  border-radius: 20px;
+  border: 2px solid rgb(22, 150, 137);
+  background-color: aquamarine;
+  width: 750px;
+  margin: 50px auto;
+  padding-bottom: 50px;
   -webkit-box-shadow: 3px 3px 5px 6px #ccc; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
   -moz-box-shadow: 3px 3px 5px 6px #ccc; /* Firefox 3.5 - 3.6 */
   box-shadow: 3px 3px 5px 6px #ccc; /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
-.AuthContainer {
-  margin: auto;
-  margin-top: 100px;
-  width: 500px;
-  height: 300px;
-  border: 2px solid black;
+#app {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  padding-top: 50px;
 }
+
+/**
+* FLEX-CSS
+*/
 
 .flexRow {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/**
+* NavBar
+*/
 .navbar {
+  position: absolute;
+  top: 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  min-width: 750px;
   height: 50px;
-  background-color: rgb(22, 150, 137);
-  border-bottom: 2px solid black;
+  background-color: aquamarine;
+  border-bottom: 2px solid rgb(22, 150, 137);
 }
 
 .navbar h3 {
+  color: rgb(22, 150, 137);
   margin-left: 10px;
 }
 
@@ -44,6 +67,72 @@
   margin-right: 10px;
 }
 
+.nav-item {
+  color: rgb(22, 150, 137);
+  margin: 0px;
+  padding: 5px;
+  border: none;
+  background-color: aquamarine;
+  font-size: 17px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.nav-item:hover {
+  color: aquamarine;
+  background-color: rgb(22, 150, 137);
+  box-shadow: #d3d3d3;
+}
+
+/**
+* AUTH PAGE
+*/
+
+.AuthContainer {
+  margin: auto;
+  margin-top: 100px;
+  width: 500px;
+  height: 400px;
+  border: 2px solid black;
+  text-align: center;
+}
+
+.overInput {
+  margin-bottom: 3px;
+}
+/**
+* TRANSACTION PAGE
+*/
+.transactions {
+  width: 55%;
+}
+.makeTransaction {
+  width: 45%;
+}
+
 .singleTransactions p {
   margin-right: 30px;
+}
+
+/**
+* PORTFOLIO PAGE
+*/
+.portfolio {
+  width: 60%;
+  margin: auto;
+}
+
+.singleAsset {
+  width: 100%;
+  height: 30px;
+}
+.singleAsset p {
+  width: 25%;
+  text-align: center;
+}
+
+.error {
+  color: red;
 }

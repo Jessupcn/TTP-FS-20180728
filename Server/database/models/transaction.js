@@ -26,9 +26,11 @@ const Transaction = db.define('transaction', {
   },
   // total in dollars
   total: {
-    type: Sequelize.DOUBLE,
+    type: Sequelize.VIRTUAL,
     get() {
-      return (this.getDataValue('quantity') * this.getDataValue('price')) / 100;
+      const quantity = this.getDataValue('quantity');
+      const price = this.getDataValue('price');
+      return (quantity * price) / 100;
     }
   }
 });

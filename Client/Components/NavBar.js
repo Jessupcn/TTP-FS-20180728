@@ -10,17 +10,26 @@ const NavBar = ({ handleClick, isLoggedIn }) => {
   return (
     <div className="navbar">
       <h3>Simple Stocks</h3>
-      <div className="nav-items flexRow">
-        <div>
-          <Link to={`/home`}>Portfolio</Link>
+      {// only display nav items if a user is logged in
+      isLoggedIn ? (
+        <div className="nav-items flexRow">
+          <div>
+            <Link className="nav-item" to={`/portfolio`}>
+              Portfolio
+            </Link>
+          </div>
+          <div>
+            <Link className="nav-item" to={`/transactions`}>
+              Transactions
+            </Link>
+          </div>
+          <div>
+            <button className="nav-item" onClick={handleClick}>
+              Log Out
+            </button>
+          </div>
         </div>
-        <div>
-          <Link to={`/home`}>Transactions</Link>
-        </div>
-        <div>
-          <button onClick={handleClick}>Log Out</button>
-        </div>
-      </div>
+      ) : null}
     </div>
   );
 };

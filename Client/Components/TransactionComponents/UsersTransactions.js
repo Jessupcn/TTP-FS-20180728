@@ -23,21 +23,25 @@ class UsersTransactions extends Component {
   render() {
     const { transactions } = this.props;
     return (
-      <div>
-        <div className="flexRow singleTransactions">
+      <div className="transactions">
+        <div className="flexRow singleAsset">
           <p>Stock:</p>
           <p>Shares:</p>
-          <p>Price:</p>
+          <p>Price per Share:</p>
+          <p>Total:</p>
         </div>
         {
           <div>
             {transactions.length
-              ? transactions.map(transaction => (
-                  <SingleTransaction
-                    key={transaction.id}
-                    transaction={transaction}
-                  />
-                ))
+              ? transactions
+                  .slice(0)
+                  .reverse()
+                  .map(transaction => (
+                    <SingleTransaction
+                      key={transaction.id}
+                      transaction={transaction}
+                    />
+                  ))
               : 'No known transactions'}
           </div>
         }

@@ -6,26 +6,22 @@ import { auth } from '../../Store';
  * COMPONENT
  */
 const SignIn = props => {
-  const { error, handleSubmit } = props;
-  if (error) {
-    console.log('ERRRROR: ', error);
-  }
+  const { handleSubmit } = props;
   return (
     <div>
       <h4>Sign In:</h4>
       <form onSubmit={handleSubmit}>
         <div>
-          <p>Email:</p>
+          <p className="overInput">Email:</p>
           <input name="email" type="text" placeholder="Email Address" />
         </div>
         <div>
-          <p>Password:</p>
+          <p className="overInput">Password:</p>
           <input name="password" type="password" placeholder="Password" />
         </div>
         <div>
           <button type="submit">Sign In</button>
         </div>
-        {error && error.response ? <div>{error.response.data}</div> : null}
       </form>
     </div>
   );

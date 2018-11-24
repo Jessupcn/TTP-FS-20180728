@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAssets } from '../../Store';
 import PortfolioItem from './PortfolioItem';
-import { AssertionError } from 'assert';
 
 /**
  * COMPONENT
@@ -19,27 +18,40 @@ class UsersPortfolio extends Component {
     }
   }
 
+  findPortfolioTotal() {
+    return this.props.portfolio.length
+      ? this.props.portfolio
+          .map(item => {
+            return +(item.currentPrice * item.quantity);
+          })
+          .reduce((accum, item) => accum + item)
+          .toFixed(2)
+      : 0;
+  }
+
   render() {
-    const { portfolio } = this.props;
+    const { portfolio, user } = this.props;
     return (
       <div>
-        <div className="flexRow singleTransactions">
-          <p>Stock:</p>
-          <p>Shares:</p>
-          <p>Current Price:</p>
-        </div>
-        {
-          <div>
+        {portfolio.length ? (
+          <div className="flex-col portfolio">
+            <h3>{`${user.name}'s Portfolio:`}</h3>
+            <div className="flexRow singleAsset">
+              <p>Stock:</p>
+              <p>Shares:</p>
+              <p>Current Price:</p>
+              <p>Total Value:</p>
+            </div>
             {portfolio.length
-              ? portfolio.map(asset => (
-                  <PortfolioItem key={asset.id} asset={asset} />
-                ))
+              ? portfolio.map(asset => {
+                  return <PortfolioItem key={asset.id} asset={asset} />;
+                })
               : 'Portfolio current empty.'}
+            <h3>{`Portfolio Total: $${this.findPortfolioTotal()}`}</h3>
           </div>
-        }
-        <div>
-          <h3>{`Portfolio Total: $${50}`}</h3>
-        </div>
+        ) : (
+          <h2>Loading Data...</h2>
+        )}
       </div>
     );
   }

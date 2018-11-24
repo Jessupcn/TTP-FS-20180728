@@ -1,18 +1,9 @@
 const router = require('express').Router();
-const axios = require('axios');
 const { Transaction } = require('../database/models');
 module.exports = router;
 
 router.post('/', (req, res, next) => {
-  axios
-    .get(`https://api.iextrading.com/1.0/stock/${req.body.tickerSymbol}/quote`)
-    .then(stockInfo => stockInfo.data)
-    .then(stockInfo => {
-      const priceToCents = stockInfo.latestPrice * 100;
-      const body = { ...req.body, price: priceToCents };
-      return body;
-    })
-    .then(body => Transaction.create(body))
+  Transaction.create(req.body)
     .then(transaction => {
       res.status(201).json(transaction);
     })

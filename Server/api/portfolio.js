@@ -10,7 +10,7 @@ router.post('/', (req, res, next) => {
     .then(asset => {
       asset
         ? StockAsset.update(
-            { quantity: asset.quantity + req.body.quantity },
+            { quantity: +asset.quantity + +req.body.quantity },
             {
               where: {
                 userId: req.body.userId,
@@ -18,7 +18,7 @@ router.post('/', (req, res, next) => {
               }
             }
           )
-        : StockAsset.create(asset);
+        : StockAsset.create(req.body);
     })
     .then(asset => {
       res.status(201).json(asset);
@@ -33,7 +33,22 @@ router.get('/:userId', (req, res, next) => {
     }
   })
     .then(stockAssets => stockAssets.map(transaction => transaction.dataValues))
-    .then(assets => assets.map(asset => {}))
+    .then(assets => {
+      const stockInfoPromises = assets.map(asset => {
+        return axios.get(
+          `https://api.iextrading.com/1.0/stock/${asset.tickerSymbol}/quote`
+        );
+      });
+      let stockIndex = 0;
+      return Promise.all(stockInfoPromises)
+        .then(stockArray => stockArray.map(stock => stock.data))
+        .then(stockInfo => {
+          assets.forEach(asset => {
+            asset.currentPrice = stockInfo[stockIndex++].latestPrice;
+          });
+          return assets;
+        });
+    })
     .then(assets => res.status(200).json(assets))
     .catch(next);
 });
