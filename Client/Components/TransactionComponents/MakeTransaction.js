@@ -9,15 +9,31 @@ const axios = require('axios');
 class MakeTransaction extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tickerSymbol: '',
+      quantity: '',
+      error: null
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(evt) {
+    const change = {};
+    change[evt.target.name] = evt.target.value;
+    this.setState(change);
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
+    if (isNaN(+this.state.quantity)) {
+      return this.setState({ error: 'Please enter a valid number.' });
+    }
     const transactionInfo = {
-      tickerSymbol: evt.target.tickerSymbol.value.toUpperCase(),
+      tickerSymbol: this.state.tickerSymbol.toUpperCase(),
       userId: this.props.user.id,
-      quantity: +evt.target.quantity.value
+      quantity: this.state.quantity,
+      userBalance: this.props.user.balance
     };
     const balanceInfo = {
       userId: this.props.user.id
@@ -29,18 +45,30 @@ class MakeTransaction extends Component {
         }/quote`
       )
       .then(stockInfo => stockInfo.data)
-      .then(stockInfo => {
-        if (this.props.user.balance > stockInfo.latestPrice * 100) {
-          transactionInfo.price = stockInfo.latestPrice * 100;
-          balanceInfo.balance =
-            this.props.user.balance -
-            transactionInfo.price * transactionInfo.quantity;
-          this.props.handleFormSubmit(transactionInfo, balanceInfo);
-        } else {
-          console.error('Your balance is too low.');
+      .then(
+        stockInfo => {
+          if (
+            this.props.user.balance >
+            stockInfo.latestPrice * transactionInfo.quantity * 100
+          ) {
+            console.log('BALANCE: ', this.props.user.balance);
+            console.log('STOCK PRICE: ', stockInfo.latestPrice * 100);
+            transactionInfo.price = stockInfo.latestPrice * 100;
+            balanceInfo.balance =
+              this.props.user.balance -
+              transactionInfo.price * transactionInfo.quantity;
+            this.props.handleFormSubmit(transactionInfo, balanceInfo);
+          } else {
+            return this.setState({ error: 'Your balance is too low.' });
+          }
+        },
+        err => {
+          console.log('ERROR: ', err);
         }
-      })
+      )
       .catch();
+
+    this.setState({ tickerSymbol: '', quantity: '', error: null });
   }
 
   postToPortfolio(transactionInfo) {
@@ -49,6 +77,8 @@ class MakeTransaction extends Component {
 
   render() {
     const { user, error } = this.props;
+    console.log('STATE: ', this.state);
+    console.log('ERROR: ', error);
     return (
       <div className="innerCompRight flex-col">
         <h3>{`Available Balance: $${(user.balance / 100).toFixed(2)}`}</h3>
@@ -60,16 +90,29 @@ class MakeTransaction extends Component {
               name="tickerSymbol"
               type="text"
               placeholder="Ticker Symbol"
+              onChange={this.handleChange}
+              value={this.state.tickerSymbol.toUpperCase()}
             />
           </div>
           <div>
             <p className="overInput">Quantity:</p>
-            <input name="quantity" type="text" placeholder="Quantity" />
+            <input
+              name="quantity"
+              type="text"
+              placeholder="Quantity"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+            />
           </div>
           <button className="formButton" type="submit">
             Purchase
           </button>
-          {error && error.response ? <div>{error.response.data}</div> : null}
+          {error && error.response ? (
+            <div className="error red">{error.response.data}</div>
+          ) : null}
+          {this.state.error ? (
+            <div className="error red">{this.state.error}</div>
+          ) : null}
         </form>
       </div>
     );
@@ -82,7 +125,7 @@ class MakeTransaction extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    error: state.error
+    error: state.transactions.error
   };
 };
 

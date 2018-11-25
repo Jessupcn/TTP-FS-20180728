@@ -6,11 +6,12 @@ import axios from 'axios';
 const GET_PORTFOLIO = 'GET_PORTFOLIO';
 const REMOVE_PORTFOLIO = 'REMOVE_PORTFOLIO';
 const ADD_TO_PORTFOLIO = 'ADD_TO_PORTFOLIO';
+const ADD_ERROR = 'ADD_ERROR';
 
 /**
  * INITIAL STATE
  */
-const defaultPortfolio = [];
+const defaultPortfolio = { portfolio: [], error: null };
 
 /**
  * ACTION CREATORS
@@ -18,6 +19,11 @@ const defaultPortfolio = [];
 export const getPortfolio = portfolio => ({
   type: GET_PORTFOLIO,
   portfolio
+});
+
+export const addError = error => ({
+  type: ADD_ERROR,
+  error
 });
 
 export const addToPortfolio = itemToAdd => ({
@@ -35,9 +41,14 @@ export const removePortfolio = () => ({ type: REMOVE_PORTFOLIO });
 export const fetchAssets = userId => dispatch => {
   return axios
     .get(`/api/portfolio/${userId}`)
-    .then(res => {
-      dispatch(getPortfolio(res.data || defaultPortfolio));
-    })
+    .then(
+      res => {
+        dispatch(getPortfolio(res.data || defaultPortfolio));
+      },
+      err => {
+        dispatch(addError(err));
+      }
+    )
     .catch(err => console.log(err));
 };
 
@@ -45,9 +56,14 @@ export const fetchAssets = userId => dispatch => {
 export const postAsset = asset => dispatch => {
   axios
     .post('/api/portfolio', asset)
-    .then(res => {
-      dispatch(addToPortfolio(res.data || defaultPortfolio));
-    })
+    .then(
+      res => {
+        dispatch(addToPortfolio(res.data || defaultPortfolio));
+      },
+      err => {
+        dispatch(addError(err));
+      }
+    )
     .catch(err => console.log(err));
 };
 
@@ -59,7 +75,9 @@ export const logoutPortfolio = () => dispatch => dispatch(removePortfolio());
 export default function(state = defaultPortfolio, action) {
   switch (action.type) {
     case GET_PORTFOLIO:
-      return action.portfolio;
+      return { portfolio: action.portfolio, error: null };
+    case ADD_ERROR:
+      return { portfolio: state.portfolio, error: action.error };
     case ADD_TO_PORTFOLIO:
       return state;
     case REMOVE_PORTFOLIO:

@@ -63,7 +63,8 @@ class UsersPortfolio extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    portfolio: state.portfolio
+    portfolio: state.portfolio.portfolio,
+    error: state.portfolio.error
   };
 };
 

@@ -159,6 +159,10 @@
   text-align: center;
 }
 
+.error {
+  margin-top: 15px;
+}
+
 .green {
   color: green;
 }

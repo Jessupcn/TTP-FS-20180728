@@ -56,7 +56,8 @@ class UsersTransactions extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    transactions: state.transactions
+    transactions: state.transactions.transactions,
+    error: state.transactions.error
   };
 };
 
