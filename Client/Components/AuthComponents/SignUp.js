@@ -11,9 +11,9 @@ const SignUp = props => {
     console.log(error);
   }
   return (
-    <div>
+    <div className="authComp">
       <h4>New User:</h4>
-      <form onSubmit={handleSubmit}>
+      <form className="flex-col" onSubmit={handleSubmit}>
         <div>
           <p className="overInput">Name:</p>
           <input name="name" type="text" placeholder="Name" />
@@ -27,7 +27,9 @@ const SignUp = props => {
           <input name="password" type="password" placeholder="Password" />
         </div>
         <div>
-          <button type="submit">Register</button>
+          <button className="formButton" type="submit">
+            Register
+          </button>
         </div>
       </form>
     </div>

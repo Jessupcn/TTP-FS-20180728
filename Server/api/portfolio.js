@@ -44,7 +44,9 @@ router.get('/:userId', (req, res, next) => {
         .then(stockArray => stockArray.map(stock => stock.data))
         .then(stockInfo => {
           assets.forEach(asset => {
-            asset.currentPrice = stockInfo[stockIndex++].latestPrice;
+            asset.currentPrice = stockInfo[stockIndex].latestPrice;
+            asset.openPrice = stockInfo[stockIndex].open;
+            stockIndex++;
           });
           return assets;
         });

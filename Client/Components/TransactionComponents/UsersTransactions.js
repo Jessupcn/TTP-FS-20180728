@@ -23,11 +23,11 @@ class UsersTransactions extends Component {
   render() {
     const { transactions } = this.props;
     return (
-      <div className="transactions">
-        <div className="flexRow singleAsset">
+      <div className="innerCompLeft">
+        <div className="flexRow singleAsset label">
           <p>Stock:</p>
           <p>Shares:</p>
-          <p>Price per Share:</p>
+          <p>Price / Share:</p>
           <p>Total:</p>
         </div>
         {

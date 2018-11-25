@@ -32,7 +32,9 @@ class MakeTransaction extends Component {
       .then(stockInfo => {
         if (this.props.user.balance > stockInfo.latestPrice * 100) {
           transactionInfo.price = stockInfo.latestPrice * 100;
-          balanceInfo.balance = this.props.user.balance - transactionInfo.price;
+          balanceInfo.balance =
+            this.props.user.balance -
+            transactionInfo.price * transactionInfo.quantity;
           this.props.handleFormSubmit(transactionInfo, balanceInfo);
         } else {
           console.error('Your balance is too low.');
@@ -48,10 +50,10 @@ class MakeTransaction extends Component {
   render() {
     const { user, error } = this.props;
     return (
-      <div className="makeTransaction flex-col">
+      <div className="innerCompRight flex-col">
         <h3>{`Available Balance: $${(user.balance / 100).toFixed(2)}`}</h3>
         <h4>MakeTransaction:</h4>
-        <form onSubmit={evt => this.handleSubmit(evt)}>
+        <form className="flex-col" onSubmit={evt => this.handleSubmit(evt)}>
           <div>
             <p className="overInput">Stock Symbol:</p>
             <input
@@ -64,9 +66,9 @@ class MakeTransaction extends Component {
             <p className="overInput">Quantity:</p>
             <input name="quantity" type="text" placeholder="Quantity" />
           </div>
-          <div>
-            <button type="submit">Purchase</button>
-          </div>
+          <button className="formButton" type="submit">
+            Purchase
+          </button>
           {error && error.response ? <div>{error.response.data}</div> : null}
         </form>
       </div>

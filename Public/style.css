@@ -27,13 +27,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }
 
 .flex-col {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -60,7 +59,7 @@
 }
 
 .nav-items {
-  width: 35%;
+  width: 38%;
 }
 
 .nav-items div {
@@ -86,6 +85,24 @@
   box-shadow: #d3d3d3;
 }
 
+.formButton {
+  margin-top: 10px;
+  width: 70px;
+  padding: 5px;
+  color: rgb(22, 150, 137);
+  border: 2px solid rgb(22, 150, 137);
+  background-color: aquamarine;
+}
+
+.formButton:hover {
+  color: aquamarine;
+  background-color: rgb(22, 150, 137);
+  box-shadow: #d3d3d3;
+}
+
+.label p {
+  font-weight: bold;
+}
 /**
 * AUTH PAGE
 */
@@ -95,20 +112,28 @@
   margin-top: 100px;
   width: 500px;
   height: 400px;
-  border: 2px solid black;
+  border: 2px solid rgb(22, 150, 137);
   text-align: center;
 }
 
+.authComp {
+  width: 50%;
+  margin: 22px auto;
+}
+
 .overInput {
+  font-size: 10px;
+  align-self: flex-end;
   margin-bottom: 3px;
+  font-weight: bold;
 }
 /**
 * TRANSACTION PAGE
 */
-.transactions {
+.innerCompLeft {
   width: 55%;
 }
-.makeTransaction {
+.innerCompRight {
   width: 45%;
 }
 
@@ -127,12 +152,17 @@
 .singleAsset {
   width: 100%;
   height: 30px;
+  margin-bottom: 15px;
 }
 .singleAsset p {
   width: 25%;
   text-align: center;
 }
 
-.error {
+.green {
+  color: green;
+}
+
+.red {
   color: red;
 }

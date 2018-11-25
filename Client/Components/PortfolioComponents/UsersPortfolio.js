@@ -34,9 +34,9 @@ class UsersPortfolio extends Component {
     return (
       <div>
         {portfolio.length ? (
-          <div className="flex-col portfolio">
+          <div className="flex-col innerCompLeft">
             <h3>{`${user.name}'s Portfolio:`}</h3>
-            <div className="flexRow singleAsset">
+            <div className="flexRow singleAsset label">
               <p>Stock:</p>
               <p>Shares:</p>
               <p>Current Price:</p>
@@ -50,7 +50,7 @@ class UsersPortfolio extends Component {
             <h3>{`Portfolio Total: $${this.findPortfolioTotal()}`}</h3>
           </div>
         ) : (
-          <h2>Loading Data...</h2>
+          <h2>No Portfolio to show!</h2>
         )}
       </div>
     );

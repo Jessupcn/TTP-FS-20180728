@@ -8,9 +8,9 @@ import { auth } from '../../Store';
 const SignIn = props => {
   const { handleSubmit } = props;
   return (
-    <div>
+    <div className="authComp">
       <h4>Sign In:</h4>
-      <form onSubmit={handleSubmit}>
+      <form className="flex-col" onSubmit={handleSubmit}>
         <div>
           <p className="overInput">Email:</p>
           <input name="email" type="text" placeholder="Email Address" />
@@ -20,7 +20,9 @@ const SignIn = props => {
           <input name="password" type="password" placeholder="Password" />
         </div>
         <div>
-          <button type="submit">Sign In</button>
+          <button className="formButton" type="submit">
+            Sign In
+          </button>
         </div>
       </form>
     </div>

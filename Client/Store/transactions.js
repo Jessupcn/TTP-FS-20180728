@@ -41,7 +41,9 @@ export const postTransaction = transaction => dispatch =>
   axios
     .post('/api/transactions', transaction)
     .then(res => {
-      dispatch(addTransaction(res.data || defaultTransactions));
+      dispatch(
+        addTransaction({ transactions: res.data } || defaultTransactions)
+      );
     })
     .catch(err => console.log(err));
 
