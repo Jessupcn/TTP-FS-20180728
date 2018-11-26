@@ -1,4 +1,4 @@
-# DevBook
+# SimpleStocks
 
 [Deployed Site](https://simple-stocks-ttp.herokuapp.com/)
 
