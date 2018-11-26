@@ -45,7 +45,6 @@ router.get('/:userId', (req, res, next) => {
         )
         .then(stockObj => stockObj.data)
         .then(stockInfo => {
-          console.log(stockInfo[assets[0].tickerSymbol]);
           assets.forEach(asset => {
             asset.currentPrice =
               stockInfo[asset.tickerSymbol].quote.latestPrice;

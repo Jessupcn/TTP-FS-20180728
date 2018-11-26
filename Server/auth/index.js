@@ -27,9 +27,6 @@ router.post('/signup', (req, res, next) => {
       req.login(user, err => (err ? next(err) : res.json(user)));
     })
     .catch(err => {
-      console.log('ERRRORRR: ', err);
-      console.log('validation errorrrrr: ', err.errors[0]);
-      console.log('ERRRORRRR MESS: ', err.errors[0].message);
       if (err.name === 'SequelizeUniqueConstraintError') {
         res.status(401).send('Email address already in use.');
       } else if (err.name === 'SequelizeValidationError') {
