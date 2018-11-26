@@ -36,19 +36,20 @@ router.get('/:userId', (req, res, next) => {
   })
     .then(stockAssets => stockAssets.map(transaction => transaction.dataValues))
     .then(assets => {
-      const stockInfoPromises = assets.map(asset => {
-        return axios.get(
-          `https://api.iextrading.com/1.0/stock/${asset.tickerSymbol}/quote`
-        );
-      });
-      let stockIndex = 0;
-      return Promise.all(stockInfoPromises)
-        .then(stockArray => stockArray.map(stock => stock.data))
+      const stockSymbols = assets.map(asset => asset.tickerSymbol).join(',');
+
+      // Grabs all the stock info in one call and maps it onto the proper asset
+      return axios
+        .get(
+          `https://api.iextrading.com/1.0/stock/market/batch?symbols=${stockSymbols}&types=quote`
+        )
+        .then(stockObj => stockObj.data)
         .then(stockInfo => {
+          console.log(stockInfo[assets[0].tickerSymbol]);
           assets.forEach(asset => {
-            asset.currentPrice = stockInfo[stockIndex].latestPrice;
-            asset.openPrice = stockInfo[stockIndex].open.toFixed(2);
-            stockIndex++;
+            asset.currentPrice =
+              stockInfo[asset.tickerSymbol].quote.latestPrice;
+            asset.openPrice = stockInfo[asset.tickerSymbol].quote.open;
           });
           return assets;
         });
