@@ -15,6 +15,7 @@ class Routes extends Component {
     }
   }
 
+  // Runs update when user is added to props to fetch more data
   shouldComponentUpdate(newProps) {
     if (newProps.user && newProps.user.id) {
       this.props.loadUserData(newProps.user.id);
