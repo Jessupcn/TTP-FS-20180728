@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
+// Records every transaction a user makes
 const Transaction = db.define('transaction', {
   tickerSymbol: {
     type: Sequelize.STRING,

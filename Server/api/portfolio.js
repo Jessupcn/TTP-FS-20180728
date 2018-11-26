@@ -47,7 +47,7 @@ router.get('/:userId', (req, res, next) => {
         .then(stockInfo => {
           assets.forEach(asset => {
             asset.currentPrice = stockInfo[stockIndex].latestPrice;
-            asset.openPrice = stockInfo[stockIndex].open;
+            asset.openPrice = stockInfo[stockIndex].open.toFixed(2);
             stockIndex++;
           });
           return assets;

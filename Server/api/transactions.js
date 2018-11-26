@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Transaction, StockAsset, User } = require('../database/models');
+const { Transaction } = require('../database/models');
 module.exports = router;
 
 // Post a new transaction to the database

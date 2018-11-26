@@ -25,23 +25,37 @@ class UsersPortfolio extends Component {
 
   render() {
     const { portfolio, user } = this.props;
+    const stockTotal = +this.findPortfolioTotal();
+    const userBal = (+user.balance / 100).toFixed(2);
     return (
       <div>
         {portfolio.length ? (
-          <div className="flex-col innerCompLeft">
+          <div className="flex-col portfolio">
             <h3>{`${user.name}'s Portfolio:`}</h3>
-            <div className="flexRow singleAsset label">
-              <p>Stock:</p>
-              <p>Shares:</p>
-              <p>Current Price:</p>
-              <p>Total Value:</p>
+            <div className="bot-divide">
+              <div className="flexRow singleAsset label">
+                <p>Stock:</p>
+                <p>Shares:</p>
+                <p>Current Price:</p>
+                <p>Total Value:</p>
+              </div>
+              {portfolio.length
+                ? portfolio.map(asset => {
+                    return <PortfolioItem key={asset.id} asset={asset} />;
+                  })
+                : 'Portfolio current empty.'}
             </div>
-            {portfolio.length
-              ? portfolio.map(asset => {
-                  return <PortfolioItem key={asset.id} asset={asset} />;
-                })
-              : 'Portfolio current empty.'}
-            <h3>{`Portfolio Total: $${this.findPortfolioTotal()}`}</h3>
+            <div className="bot-divide">
+              <div className="flexRow">
+                <p>{`Stock Total: `}</p>
+                <p>{`$${stockTotal}`}</p>
+              </div>
+              <div className="flexRow">
+                <p>{`${user.name}'s Balance: `}</p>
+                <p>{`$${userBal}`}</p>
+              </div>
+            </div>
+            <h3>{`Total Portfolio: $${stockTotal + +userBal}`}</h3>
           </div>
         ) : (
           <h2>No Portfolio to show!</h2>

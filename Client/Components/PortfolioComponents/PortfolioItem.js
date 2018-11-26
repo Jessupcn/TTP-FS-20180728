@@ -5,7 +5,6 @@ import React from 'react';
  */
 const PortfolioItem = props => {
   const { tickerSymbol, quantity, currentPrice, openPrice } = props.asset;
-  console.log('PORT ITEM PROPS: ', props);
   return (
     <div className={findColor(currentPrice, openPrice)}>
       <p>{tickerSymbol}</p>
