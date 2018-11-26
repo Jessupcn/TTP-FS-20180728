@@ -21,6 +21,7 @@ git clone https://github.com/Jessupcn/TTP-FS-20180728
 Now that you've got the code, follow these steps to install dependencies:
 
 - Run `npm install`, or `yarn install`
+- Create a PostgreSQL database named `simple-stocks`
 
 ## Start
 
