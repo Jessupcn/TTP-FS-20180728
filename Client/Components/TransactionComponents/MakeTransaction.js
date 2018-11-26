@@ -28,10 +28,17 @@ class MakeTransaction extends Component {
   // Handles form submission
   handleSubmit(evt) {
     evt.preventDefault();
+
+    // returns an error if a quantity is not entered
+    if (!this.state.quantity.length) {
+      return this.setState({ error: 'Quantity field left empty.' });
+    }
+
     // returns an error if a valid number is not entered
     if (isNaN(+this.state.quantity)) {
       return this.setState({ error: 'Please enter a valid number.' });
     }
+
     // Info to pass to database
     const transactionInfo = {
       tickerSymbol: this.state.tickerSymbol.toUpperCase(),
