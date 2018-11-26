@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
-import { AuthHome, TransactionHome, PortfolioHome } from './components';
-import { loggedIn, fetchAssets, fetchTransactions } from './store';
+import { AuthHome, TransactionHome, PortfolioHome } from './Components';
+import { loggedIn, fetchAssets, fetchTransactions } from './Store';
 
 /**
  * COMPONENT
