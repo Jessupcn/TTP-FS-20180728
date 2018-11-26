@@ -42,7 +42,7 @@ class UsersTransactions extends Component {
                       transaction={transaction}
                     />
                   ))
-              : 'No known transactions'}
+              : 'No transactions found.'}
           </div>
         }
       </div>

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { User, Transaction } = require('../database/models');
 module.exports = router;
 
+// Logs a user in
 router.post('/login', (req, res, next) => {
   User.findOne({
     where: { email: req.body.email },
@@ -22,6 +23,7 @@ router.post('/login', (req, res, next) => {
     .catch(next);
 });
 
+// Registers a new user in the database
 router.post('/signup', (req, res, next) => {
   req.body.balance = 500000;
   User.create(req.body)
@@ -38,12 +40,14 @@ router.post('/signup', (req, res, next) => {
     });
 });
 
+// Logs a user out
 router.post('/logout', (req, res) => {
   req.logout();
   req.session.destroy();
   res.redirect('/');
 });
 
+// Returns the logged in user
 router.get('/isLoggedIn', (req, res) => {
   res.json(req.user);
 });

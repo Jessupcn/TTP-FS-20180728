@@ -3,6 +3,7 @@ const axios = require('axios');
 const { StockAsset } = require('../database/models');
 module.exports = router;
 
+// Post a new stockAsset or update an existing one
 router.post('/', (req, res, next) => {
   StockAsset.findOne({
     where: { userId: req.body.userId, tickerSymbol: req.body.tickerSymbol }
@@ -26,6 +27,7 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
+// Find all of a user's stockAssets
 router.get('/:userId', (req, res, next) => {
   StockAsset.findAll({
     where: {

@@ -5,7 +5,7 @@ import { MakeTransaction, UsersTransactions } from './TransactionComponents';
 
 const TransactionHome = () => {
   return (
-    <div className="container-shadow flexRow">
+    <div className="home-container container-shadow flexRow">
       <UsersTransactions />
       <MakeTransaction />
     </div>

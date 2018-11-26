@@ -3,7 +3,7 @@ import { UsersPortfolio } from './PortfolioComponents';
 
 const PortfolioHome = () => {
   return (
-    <div className="container-shadow">
+    <div className="home-container container-shadow">
       <UsersPortfolio />
     </div>
   );

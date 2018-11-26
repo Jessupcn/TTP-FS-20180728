@@ -19,6 +19,10 @@
   padding-top: 50px;
 }
 
+.home-container {
+  min-height: 350px;
+}
+
 /**
 * FLEX-CSS
 */
@@ -169,4 +173,8 @@
 
 .red {
   color: red;
+}
+
+.grey {
+  color: darkgrey;
 }
