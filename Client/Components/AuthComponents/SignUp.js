@@ -47,6 +47,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
+    // Handles submission of form and dispatches user login
     handleSubmit(evt) {
       evt.preventDefault();
       const formName = 'signup';

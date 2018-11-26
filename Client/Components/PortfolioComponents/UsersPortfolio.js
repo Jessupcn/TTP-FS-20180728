@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchAssets } from '../../Store';
 import PortfolioItem from './PortfolioItem';
 
 /**
@@ -12,12 +11,7 @@ class UsersPortfolio extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    if (this.props.user.id) {
-      this.props.loadPortfolio(this.props.user.id);
-    }
-  }
-
+  // returns the total value of all stocks in a user's portfolio
   findPortfolioTotal() {
     return this.props.portfolio.length
       ? this.props.portfolio
@@ -68,15 +62,7 @@ const mapState = state => {
   };
 };
 
-const mapDispatch = dispatch => {
-  return {
-    loadPortfolio: userId => {
-      dispatch(fetchAssets(userId));
-    }
-  };
-};
-
 export default connect(
   mapState,
-  mapDispatch
+  null
 )(UsersPortfolio);

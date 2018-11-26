@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { postTransaction, postAsset, updateBalance } from '../../Store';
-import { runInNewContext } from 'vm';
 const axios = require('axios');
 
 /**
@@ -19,19 +18,21 @@ class MakeTransaction extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  // Updates local state with changes to form fields
   handleChange(evt) {
     const change = {};
     change[evt.target.name] = evt.target.value;
     this.setState(change);
   }
 
+  // Handles form submission
   handleSubmit(evt) {
     evt.preventDefault();
-    // return error if a valid number is not entered
+    // returns an error if a valid number is not entered
     if (isNaN(+this.state.quantity)) {
       return this.setState({ error: 'Please enter a valid number.' });
     }
-    // info to pass to database
+    // Info to pass to database
     const transactionInfo = {
       tickerSymbol: this.state.tickerSymbol.toUpperCase(),
       userId: +this.props.user.id,

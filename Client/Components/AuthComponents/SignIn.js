@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { auth } from '../../Store';
 
@@ -40,6 +40,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
+    // Handles submission of form and dispatches user login
     handleSubmit(evt) {
       evt.preventDefault();
       const formName = 'login';

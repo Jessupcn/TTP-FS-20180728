@@ -3,6 +3,7 @@ const pkg = require('../../package.json');
 
 const databaseName = pkg.name;
 
+// Initializes database
 const db = new Sequelize(
   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
   {

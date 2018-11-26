@@ -5,8 +5,9 @@ import React from 'react';
  */
 const PortfolioItem = props => {
   const { tickerSymbol, quantity, currentPrice, openPrice } = props.asset;
+  console.log('PORT ITEM PROPS: ', props);
   return (
-    <div className={this.findColor(currentPrice, openPrice)}>
+    <div className={findColor(currentPrice, openPrice)}>
       <p>{tickerSymbol}</p>
       <p>{quantity}</p>
       <p>{`$${currentPrice.toFixed(2)}`}</p>
@@ -16,7 +17,7 @@ const PortfolioItem = props => {
 };
 
 // Returns class names with proper color for text
-PortfolioItem.prototype.findColor = (currentPrice, openPrice) => {
+const findColor = (currentPrice, openPrice) => {
   if (openPrice > currentPrice) {
     return 'red flexRow singleAsset';
   } else if (currentPrice > openPrice) {

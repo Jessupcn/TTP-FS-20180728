@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { AuthHome, TransactionHome, PortfolioHome } from './components';
-import { loggedIn } from './store';
+import { loggedIn, fetchAssets, fetchTransactions } from './store';
 
 /**
  * COMPONENT
@@ -10,6 +10,19 @@ import { loggedIn } from './store';
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    if (this.props.user && this.props.user.id) {
+      this.props.loadUserData(this.props.user.id);
+    }
+  }
+
+  shouldComponentUpdate(newProps) {
+    if (newProps.user && newProps.user.id) {
+      this.props.loadUserData(newProps.user.id);
+      return true;
+    }
+    if (!newProps.user.id) {
+      return true;
+    }
   }
 
   render() {
@@ -24,7 +37,7 @@ class Routes extends Component {
             <Route component={TransactionHome} />
           </Switch>
         )}
-        {/* Display Auth page as a fallback */}
+        {/* Display Auth page as a fallback*/}
         <Route component={AuthHome} />
       </Switch>
     );
@@ -37,6 +50,7 @@ class Routes extends Component {
 const mapState = state => {
   return {
     // Is a user logged in
+    user: state.user,
     isLoggedIn: !!state.user.id
   };
 };
@@ -45,6 +59,10 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(loggedIn());
+    },
+    loadUserData(userId) {
+      dispatch(fetchTransactions(userId));
+      dispatch(fetchAssets(userId));
     }
   };
 };
