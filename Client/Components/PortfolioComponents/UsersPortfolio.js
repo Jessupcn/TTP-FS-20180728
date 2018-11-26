@@ -25,8 +25,9 @@ class UsersPortfolio extends Component {
 
   render() {
     const { portfolio, user } = this.props;
-    const stockTotal = +this.findPortfolioTotal();
-    const userBal = (+user.balance / 100).toFixed(2);
+    const stockTotal = this.findPortfolioTotal();
+    const userBal = (user.balance / 100).toFixed(2);
+    const portfolioTotal = (+stockTotal + +userBal).toFixed(2);
     return (
       <div>
         {portfolio.length ? (
@@ -55,10 +56,13 @@ class UsersPortfolio extends Component {
                 <p>{`$${userBal}`}</p>
               </div>
             </div>
-            <h3>{`Total Portfolio: $${stockTotal + +userBal}`}</h3>
+            <h3>{`Total Portfolio: $${portfolioTotal}`}</h3>
           </div>
         ) : (
-          <h2>No Portfolio to show!</h2>
+          <div className="noPort">
+            <h3>No Portfolio found.</h3>
+            <h4>Try buying some stocks!</h4>
+          </div>
         )}
       </div>
     );

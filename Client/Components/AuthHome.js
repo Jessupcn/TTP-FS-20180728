@@ -13,7 +13,7 @@ const AuthHome = ({ error }) => {
       </div>
       <div>
         {error && error.response ? (
-          <p className="error">{error.response.data}</p>
+          <p className="error red">{error.response.data}</p>
         ) : null}
       </div>
     </div>

@@ -17,17 +17,21 @@ const UsersTransactions = props => {
       </div>
       {
         <div>
-          {transactions.length
-            ? transactions
-                .slice(0)
-                .reverse()
-                .map(transaction => (
-                  <SingleTransaction
-                    key={transaction.id}
-                    transaction={transaction}
-                  />
-                ))
-            : 'No transactions found.'}
+          {transactions.length ? (
+            transactions
+              .slice(0)
+              .reverse()
+              .map(transaction => (
+                <SingleTransaction
+                  key={transaction.id}
+                  transaction={transaction}
+                />
+              ))
+          ) : (
+            <div className="noPort">
+              <h3>No transactions found.</h3>
+            </div>
+          )}
         </div>
       }
     </div>
